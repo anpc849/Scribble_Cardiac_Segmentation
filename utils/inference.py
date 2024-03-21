@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import torch.nn.functional as F
+import torch
 def inference(dataset, idx, model, device):
     image = dataset[idx]['image'].unsqueeze(0)
 
