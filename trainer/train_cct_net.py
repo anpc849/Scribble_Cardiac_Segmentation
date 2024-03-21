@@ -51,8 +51,8 @@ def train(
             pseudo_supervision = torch.argmax(
                 (beta * output_soft1.detach() + (1.0-beta) * output_soft2.detach()), dim=1, keepdim=False)
 
-            loss_pse_sup = 0.5 * (dice_loss(output_soft1, pseudo_supervision.unsqueeze(
-                1)) + dice_loss(output_soft2, pseudo_supervision.unsqueeze(1)))
+            loss_pse_sup = 0.5 * (criterion['dice_loss'](output_soft1, pseudo_supervision.unsqueeze(
+                1)) + criterion['dice_loss'](output_soft2, pseudo_supervision.unsqueeze(1)))
 
             loss = loss_ce + 0.5 * loss_pse_sup
             # =================== backward ====================
