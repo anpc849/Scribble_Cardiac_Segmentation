@@ -74,7 +74,7 @@ class Evaluator(object):
     def __init__(self, n_classes):
         self.n_classes = n_classes
 
-    def evalute(self, model, val_loader, device, softmax=True):
+    def evaluate(self, model, val_loader, device, softmax=True):
         """
         preds: [batch_size, n_class, height, width]
         truth: [batch_size, height, width]
@@ -95,8 +95,8 @@ class Evaluator(object):
                 for batch_i, sample in enumerate(val_loader, 0):
 
                     # ================= Extract Data ==================
-                    img = sample[0].to(device)
-                    label = sample[1].to(device) # [batch_size,height,width]
+                    img = sample['image'].to(device)
+                    label = sample['gt'].to(device) # [batch_size,height,width]
 
                     # =================== forward =====================
                     logits = model(img).detach() # [batch_size, n_class, height, width]
