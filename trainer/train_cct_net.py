@@ -100,7 +100,8 @@ def validate(mode: str,
 
                 # =================== forward =====================
                 outputs = model(batch_img)[0]
-                loss = criterion(outputs, batch_gt.long(), weights)
+                outputs_soft = torch.softmax(outputs, dim=1)
+                loss = criterion(outputs_soft, batch_gt.unsqueeze(1).long(), weights)
 
                 # =================== backward ====================
                 pbar.update()
