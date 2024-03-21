@@ -99,7 +99,11 @@ class Evaluator(object):
                     label = sample['gt'].to(device) # [batch_size,height,width]
 
                     # =================== forward =====================
-                    logits = model(img).detach() # [batch_size, n_class, height, width]
+
+                    logits = model(img)
+                    if isinstance(logits, tuple):
+                        logits = logits[0]
+                    logtis = logits.detach()
                     if softmax:
                         logits = F.softmax(logits, dim=1)
                     preds = torch.argmax(logits, dim=1) # [batch_size, height, width]
